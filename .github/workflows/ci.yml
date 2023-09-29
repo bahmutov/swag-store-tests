@@ -1,5 +1,14 @@
 name: ci
-on: [push, workflow_dispatch]
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      testIds:
+        description: |
+          Comma-separated list of data test ids in the source files
+        required: false
+        type: string
+
 jobs:
   e2e:
     runs-on: ubuntu-22.04
@@ -38,7 +47,15 @@ jobs:
         run: npm start &
         working-directory: swag-store
 
-      - name: Run E2E tests
+      - name: Find specs for test ids
+        if: ${{ github.event.inputs.testIds }}
+        run: |
+          npx find-ids --test-ids ${{ github.event.inputs.testIds }} \
+            --specs 'cypress/e2e/**/*.cy.js' --command getByTestId,containsTestId \
+            --set-gha-outputs
+
+      - name: Run all E2E tests
+        if: ${{ !github.event.inputs.testIds }}
         uses: cypress-io/github-action@v6
         with:
           install: false
