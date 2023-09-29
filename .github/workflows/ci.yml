@@ -49,13 +49,25 @@ jobs:
 
       - name: Find specs for test ids
         if: ${{ github.event.inputs.testIds }}
+        id: find-specs
         run: |
           npx find-ids --test-ids ${{ github.event.inputs.testIds }} \
             --specs 'cypress/e2e/**/*.cy.js' --command getByTestId,containsTestId \
             --set-gha-outputs
 
+      - name: Run found E2E tests
+        if: ${{ steps.find-specs.outputs.specsToRunN }}
+        uses: cypress-io/github-action@v6
+        with:
+          install: false
+          wait-on: 'http://localhost:3000'
+          record: true
+          spec: ${{ steps.find-specs.outputs.specsToRun }}
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+
       - name: Run all E2E tests
-        if: ${{ !github.event.inputs.testIds }}
+        if: ${{ !steps.find-specs.outputs.specsToRunN }}
         uses: cypress-io/github-action@v6
         with:
           install: false

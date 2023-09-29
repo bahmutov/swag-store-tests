@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {},
   "devDependencies": {
-    "changed-test-ids": "^1.8.0",
+    "changed-test-ids": "^1.8.1",
     "cypress": "^13.3.0",
     "find-cypress-specs": "^1.33.0",
     "prettier": "^2.8.3",
