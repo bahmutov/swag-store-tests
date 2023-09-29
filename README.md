@@ -4,6 +4,32 @@
 
 📝 blog post [Using Test Ids To Pick Cypress Specs To Run](https://glebbahmutov.com/blog/using-test-ids-to-pick-specs-to-run/)
 
+To trigger the `` event and run the CI workflow, use personal token:
+
+- run all specs
+
+```
+curl -L \
+  -X POST \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: Bearer <my github token>"\
+  -H "X-GitHub-Api-Version: 2022-11-28" \
+  https://api.github.com/repos/bahmutov/swag-store-tests/dispatches \
+  -d '{"event_type":"specs-by-test-ids"}'
+```
+
+- run specs that use the test id `lastName`
+
+```
+curl -L \
+  -X POST \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: Bearer <my github token>"\
+  -H "X-GitHub-Api-Version: 2022-11-28" \
+  https://api.github.com/repos/bahmutov/swag-store-tests/dispatches \
+  -d '{"event_type":"specs-by-test-ids","client_payload":{"testIds":"lastName"}}'
+```
+
 ## Small print
 
 Author: Gleb Bahmutov &lt;gleb.bahmutov@gmail.com&gt; &copy; 2023

@@ -24,10 +24,10 @@ jobs:
       - name: Check out the app 🛎️
         uses: actions/checkout@v4
         with:
-          # todo: pass the correct reference
-          # to check out the right branch / commit
           repository: bahmutov/swag-store
           path: swag-store
+          # use the given Git reference to check out the app source
+          ref: ${{ github.event.client_payload.ref }}
           token: ${{ secrets.SWAG_REPO_GH_TOKEN }}
 
       # inside the cloned repo with tests
