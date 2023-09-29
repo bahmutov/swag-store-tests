@@ -1,0 +1,29 @@
+name: ci
+on: [push, workflow_dispatch]
+jobs:
+  checks:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout 🛎️
+        # https://github.com/actions/checkout
+        uses: actions/checkout@v4
+
+      - name: Check out the app 🛎️
+        uses: actions/checkout@v4
+        with:
+          # todo: pass the correct reference
+          # to check out the right branch / commit
+          repository: bahmutov/swag-store
+          path: swag-store
+          token: ${{ secrets.SWAG_REPO_GH_TOKEN }}
+
+      - name: Show the source files
+        run: |
+          ls -la
+          ls -la swag-store
+
+      # https://github.com/cypress-io/github-action
+      # - name: Install 📦
+      #   uses: cypress-io/github-action@v6
+      #   with:
+      #     start: npm start

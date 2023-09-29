@@ -1,0 +1,30 @@
+{
+  "name": "swag-store-tests",
+  "description": "End-to-end Cypress specs for Swag store example app",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "changed-test-ids": "^1.8.0",
+    "cypress": "^13.3.0",
+    "find-cypress-specs": "^1.33.0",
+    "prettier": "^2.8.3",
+    "stop-only": "^3.3.1",
+    "typescript": "^4.9.5"
+  },
+  "scripts": {
+    "test": "cypress run",
+    "cy:open": "cypress open --e2e",
+    "dev": "start-test 3000 cy:open",
+    "ci": "start-test 3000",
+    "lint": "tsc --noEmit --pretty",
+    "only": "stop-only --folder cypress/e2e --folder src",
+    "only:warn": "stop-only --warn --folder cypress/e2e --folder src",
+    "names": "find-cypress-specs --names",
+    "badges": "npx -p dependency-version-badge update-badge cypress",
+    "ids:sources": "find-ids --sources 'src/**/*.jsx'",
+    "ids:specs": "find-ids --specs 'cypress/e2e/**/*.cy.js' --command getByTestId,containsTestId",
+    "ids:warn": "find-ids --sources 'src/**/*.jsx' --specs 'cypress/e2e/**/*.cy.js' --command getByTestId,containsTestId",
+    "changes": "find-ids --sources 'src/**/*.jsx' --specs 'cypress/e2e/**/*.cy.js' --command getByTestId,containsTestId --branch main --parent"
+  }
+}
