@@ -1,6 +1,7 @@
 name: ci
 on:
   push:
+  # trigger this workflow from GitHub UI
   workflow_dispatch:
     inputs:
       testIds:
@@ -8,6 +9,9 @@ on:
           Comma-separated list of data test ids in the source files
         required: false
         type: string
+  # trigger this workflow by calling GitHub API
+  repository_dispatch:
+    types: [specs-by-test-ids]
 
 jobs:
   e2e:
@@ -26,10 +30,8 @@ jobs:
           path: swag-store
           token: ${{ secrets.SWAG_REPO_GH_TOKEN }}
 
-      - name: Show the source files
-        run: |
-          ls -la
-          ls -la swag-store
+      # inside the cloned repo with tests
+      # the application is in its own "swag-store" subfolder
 
       # https://github.com/cypress-io/github-action
       - name: Install dependencies in this repo 📦
@@ -48,10 +50,14 @@ jobs:
         working-directory: swag-store
 
       - name: Find specs for test ids
-        if: ${{ github.event.inputs.testIds }}
+        # if the workflow is triggered via repository_dispatch
+        # then the list of test ids will be in the "client_payload" context object
+        # if the workflow is started via workflow_dispatch
+        # then the list of test ids will be in the "inputs" object
+        if: ${{ github.event.client_payload.testIds || github.event.inputs.testIds }}
         id: find-specs
         run: |
-          npx find-ids --test-ids ${{ github.event.inputs.testIds }} \
+          npx find-ids --test-ids ${{ github.event.client_payload.testIds || github.event.inputs.testIds }} \
             --specs 'cypress/e2e/**/*.cy.js' --command getByTestId,containsTestId \
             --set-gha-outputs
 
@@ -64,7 +70,7 @@ jobs:
           wait-on: 'http://localhost:3000'
           record: true
           spec: '${{ steps.find-specs.outputs.specsToRun }}'
-          tag: '${{ github.event.inputs.testIds }}'
+          tag: '${{ github.event.client_payload.testIds || github.event.inputs.testIds }}'
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
