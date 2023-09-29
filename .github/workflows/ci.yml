@@ -63,7 +63,8 @@ jobs:
           install: false
           wait-on: 'http://localhost:3000'
           record: true
-          spec: ${{ steps.find-specs.outputs.specsToRun }}
+          spec: '${{ steps.find-specs.outputs.specsToRun }}'
+          tag: '${{ github.event.inputs.testIds }}'
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
