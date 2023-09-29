@@ -1,7 +1,7 @@
 name: ci
 on: [push, workflow_dispatch]
 jobs:
-  checks:
+  e2e:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout 🛎️
@@ -23,7 +23,23 @@ jobs:
           ls -la swag-store
 
       # https://github.com/cypress-io/github-action
-      # - name: Install 📦
-      #   uses: cypress-io/github-action@v6
-      #   with:
-      #     start: npm start
+      - name: Install dependencies in this repo 📦
+        uses: cypress-io/github-action@v6
+        with:
+          runTests: false
+
+      - name: Install app dependencies 📦
+        # https://github.com/bahmutov/npm-install
+        uses: bahmutov/npm-install@v1
+        with:
+          working-directory: swag-store
+
+      - name: Start the app
+        run: npm start &
+        working-directory: swag-store
+
+      - name: Run E2E tests
+        uses: cypress-io/github-action@v6
+        with:
+          install: false
+          wait-on: 'http://localhost:3000'
