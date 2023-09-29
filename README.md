@@ -1,14 +1,6 @@
-# taste-the-sauce-test-ids [![ci](https://github.com/bahmutov/taste-the-sauce-test-ids/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/bahmutov/taste-the-sauce-test-ids/actions/workflows/ci.yml) ![cypress version](https://img.shields.io/badge/cypress-13.2.0-brightgreen)
+# swag-store-tests [![ci](https://github.com/bahmutov/swag-store-tests/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/bahmutov/swag-store-tests/actions/workflows/ci.yml) ![cypress version](https://img.shields.io/badge/cypress-13.3.0-brightgreen) ![changed-test-ids version](https://img.shields.io/badge/changed--test--ids-1.8.0-brightgreen)
 
-> Run Cypress end-to-end specs based on data attributes from changed source files
-
-![Store test](./images/store-test.png)
-
-Uses [changed-test-ids](https://github.com/bahmutov/changed-test-ids) to find the Cypress specs that cover the changes based on the data test id attributes in the source changes in the pull request.
-
-## See also
-
-- 🎓 See [Testing The Swag Store](https://cypress.tips/courses/swag-store) course
+> End-to-end Cypress specs for Swag store example app
 
 ## Small print
 

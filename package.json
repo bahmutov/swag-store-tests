@@ -21,7 +21,7 @@
     "only": "stop-only --folder cypress/e2e --folder src",
     "only:warn": "stop-only --warn --folder cypress/e2e --folder src",
     "names": "find-cypress-specs --names",
-    "badges": "npx -p dependency-version-badge update-badge cypress",
+    "badges": "npx -p dependency-version-badge update-badge cypress changed-test-ids",
     "ids:sources": "find-ids --sources 'src/**/*.jsx'",
     "ids:specs": "find-ids --specs 'cypress/e2e/**/*.cy.js' --command getByTestId,containsTestId",
     "ids:warn": "find-ids --sources 'src/**/*.jsx' --specs 'cypress/e2e/**/*.cy.js' --command getByTestId,containsTestId",
