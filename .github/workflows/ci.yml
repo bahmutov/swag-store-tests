@@ -57,6 +57,7 @@ jobs:
 
       - name: Run found E2E tests
         if: ${{ steps.find-specs.outputs.specsToRunN }}
+        timeout-minutes: 3
         uses: cypress-io/github-action@v6
         with:
           install: false
@@ -68,6 +69,7 @@ jobs:
 
       - name: Run all E2E tests
         if: ${{ !steps.find-specs.outputs.specsToRunN }}
+        timeout-minutes: 3
         uses: cypress-io/github-action@v6
         with:
           install: false
