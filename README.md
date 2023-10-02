@@ -1,34 +1,8 @@
 # swag-store-tests [![ci](https://github.com/bahmutov/swag-store-tests/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/bahmutov/swag-store-tests/actions/workflows/ci.yml) ![cypress version](https://img.shields.io/badge/cypress-13.3.0-brightgreen) ![changed-test-ids version](https://img.shields.io/badge/changed--test--ids-1.8.0-brightgreen) [![swag-store-tests](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/simple/jq4fyx&style=flat&logo=cypress)](https://cloud.cypress.io/projects/jq4fyx/runs)
 
-> End-to-end Cypress specs for Swag store example app
+> End-to-end Cypress specs for Swag store example app [bahmutov/swag-store](https://github.com/bahmutov/swag-store)
 
-📝 blog post [Using Test Ids To Pick Cypress Specs To Run](https://glebbahmutov.com/blog/using-test-ids-to-pick-specs-to-run/)
-
-To trigger the `` event and run the CI workflow, use personal token:
-
-- run all specs
-
-```
-curl -L \
-  -X POST \
-  -H "Accept: application/vnd.github+json" \
-  -H "Authorization: Bearer <my github token>"\
-  -H "X-GitHub-Api-Version: 2022-11-28" \
-  https://api.github.com/repos/bahmutov/swag-store-tests/dispatches \
-  -d '{"event_type":"specs-by-test-ids"}'
-```
-
-- run specs that use the test id `lastName`
-
-```
-curl -L \
-  -X POST \
-  -H "Accept: application/vnd.github+json" \
-  -H "Authorization: Bearer <my github token>"\
-  -H "X-GitHub-Api-Version: 2022-11-28" \
-  https://api.github.com/repos/bahmutov/swag-store-tests/dispatches \
-  -d '{"event_type":"specs-by-test-ids","client_payload":{"testIds":"lastName"}}'
-```
+📝 Read the blog post [Pick Tests Using Test Ids From Another Source Repo](https://glebbahmutov.com/blog/pick-tests-in-another-repo/)
 
 ## Small print
 
